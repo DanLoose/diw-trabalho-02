@@ -1,8 +1,7 @@
 window.addEventListener("load", async event => {
 
-    let objetoProdutos = await listarProdutos()
-    let produtos = objetoProdutos[0].products
-    renderizarProdutos(produtos)
+    let produtos = await listarProdutos()
+    renderizarProdutos(produtos[0])
 
 })
 
@@ -26,8 +25,8 @@ function renderizarProdutos(produtos) {
 
                     <div class="col">
                         <h1 class="fs-6">${produto.title}</h1>
-                        <small><span class="text-decoration-line-through small-text"> R$${((produto.price / 10) * (1.2)).toFixed(2)} </span></small> 
-                        <h5 style="color: rgb(255, 101, 0);" class="fw-bold"> R$${(produto.price / 10).toFixed(2)} </h5>
+                        <small><span class="text-decoration-line-through small-text"> R$${((produto.price) * (1.2)).toFixed(2)} </span></small> 
+                        <h5 style="color: rgb(255, 101, 0);" class="fw-bold"> R$${(produto.price).toFixed(2)} </h5>
                         <small>  <span> (${avaliacao}) </span>${estrelasAvaliacao.innerHTML} </small> 
                     </div>
                 </div>

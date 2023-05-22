@@ -34,8 +34,8 @@ function renderizarProduto(produto) {
                 </div>
             </div>
             <div class="row"> 
-                <span class="text-decoration-line-through small-text"> R$${((produto.price / 10) * (1.2)).toFixed(2).replace('.', ',')} </span>
-                <h1 style="color: rgb(255, 101, 0);" class="fw-bold"> R$ ${(produto.price / 10).toFixed(2).replace('.', ',')} </h1>
+                <span class="text-decoration-line-through small-text"> R$${((produto.price) * (1.2)).toFixed(2).replace('.', ',')} </span>
+                <h1 style="color: rgb(255, 101, 0);" class="fw-bold"> R$ ${(produto.price).toFixed(2).replace('.', ',')} </h1>
             </div>
             <div class="row"> 
                 ${produto.description}
