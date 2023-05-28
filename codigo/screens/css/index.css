@@ -1,0 +1,11 @@
+.campo-filtragem {
+    display: none;
+}
+
+.campo-filtragem.aberto {
+    display: block;
+}
+
+.filtro-container {
+    cursor: pointer;
+}

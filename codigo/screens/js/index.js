@@ -5,8 +5,21 @@ window.addEventListener("load", async event => {
 
 })
 
-const produtosContainer = document.getElementById('produtos')
+const produtosContainer = document.getElementById('produtos');
+const botaoFiltro = document.getElementById("botao-filtro");
+const campoFiltragem = document.getElementById("campo-filtragem");
+const filtroContainer = document.querySelector(".filtro-container");
 
+// EVENT LISTENERS
+
+filtroContainer.addEventListener("click", function () {
+    campoFiltragem.classList.toggle("aberto");
+    botaoFiltro.classList.toggle("fa-caret-right");
+    botaoFiltro.classList.toggle("fa-caret-down");
+});
+
+
+// FUNÇÕES
 function renderizarProdutos(produtos) {
     for (let i = 0; i < produtos.length; i++) {
 
@@ -46,3 +59,4 @@ function criaElementoAvaliacao(rate) {
     }
     return myDiv
 }
+

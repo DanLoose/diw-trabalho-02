@@ -1,3 +1,17 @@
+## Funcionalidades
+- [ ] Carrossel na main
+- [ ] Filtros por categorias
+- [ ] breadcrumbs
+- [ ] Filtro por nome do produto
+- [ ] Separar filtro por nome da navbar
+- [ ] responsividade
+- [ ] footer
+
+### Strech goal
+- [ ] separar produtos com carrosel por categoria
+
+
+## Entrega do trabalho
 - [ ] Publicar em um ambiente da Internet (Repl.it, GitHub Pages, Netlify ou outro a sua escolha); 
 - [X] Mostrar os dados do aluno tais como seu nome completo, curso e número de matrícula, OBRIGATORIAMENTE visíveis na Home-Page;
 - [ ] Ser responsivo;
