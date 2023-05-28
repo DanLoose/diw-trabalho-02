@@ -1,10 +1,13 @@
-const endpoint = 'https://fakestoreapi.com/'
+const endpoint = 'http://diwserver.vps.webdock.cloud:8765/'
 
 async function listarProdutos() {
     let produtos = []
     await fetch(endpoint + 'products/')
         .then(res => res.json())
-        .then(json => produtos.push(json))
+        .then(json => {
+            produtos.push(json.products)
+            // console.log(json.products)
+        })
     return produtos
 
 }
