@@ -30,7 +30,7 @@ function renderizarProdutos(produtos) {
         console.log(produto)
 
         produtosContainer.innerHTML +=
-            `<a href="./detalhes.html?id=${produto.id}" class="text-decoration-none">
+            `<a href="./screens/detalhes.html?id=${produto.id}" class="text-decoration-none">
                 <div class="row py-2 border rounded my-2 text-black"> 
                     <div class="col-auto px-3 d-flex">
                         <img class="" width="107px" src=${produto.image} alt="Card image cap">
