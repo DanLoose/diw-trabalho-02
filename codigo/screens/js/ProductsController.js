@@ -1,4 +1,4 @@
-const endpoint = 'http://diwserver.vps.webdock.cloud:8765/'
+const endpoint = 'https://diwserver.vps.webdock.cloud/'
 
 async function listarProdutos() {
     let produtos = []
