@@ -1,12 +1,8 @@
 window.addEventListener("load", async event => {
 
-    let produtos = await listarProdutos();
     let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
-    let produtosCategorias = await listarProdutosCategoria(categorias[1])
-
     renderizarEstruturaCategorias(categoriasGerais, categorias);
-    // renderizarProdutos(produtos);
-    // renderizarCategorias(categoriasEspecificas);
+    renderizarCategorias(categoriasGerais)
 
 })
 
@@ -56,7 +52,7 @@ function renderizarEstruturaCategorias(categoriasGerais, categorias) {
         let categoriaMestra = categorias.find(element => element.includes(categoria))
         let produtos = await listarProdutosCategoria(categoriaMestra);
 
-        produtosContainer.innerHTML += `<h4 style="color: rgb(255, 101, 0);"> ${categoria} </h4>`
+        produtosContainer.innerHTML += `<a href="./screens/categorias.html?categoria=${categoriaMestra}" style="text-decoration: none"> <h4 style="color: rgb(255, 101, 0);"> ${categoria} </h4> </a>`
         produtosContainer.innerHTML += renderizarProdutos(produtos, 3)
     })
 }
