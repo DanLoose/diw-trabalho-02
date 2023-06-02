@@ -1,9 +1,12 @@
 window.addEventListener("load", async event => {
 
     let produtos = await listarProdutos();
-    let categorias = await listarCategorias();
-    renderizarProdutos(produtos);
-    renderizarCategorias(categorias);
+    let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
+    let produtosCategorias = await listarProdutosCategoria(categorias[1])
+
+    renderizarEstruturaCategorias(categoriasGerais, categorias);
+    // renderizarProdutos(produtos);
+    // renderizarCategorias(categoriasEspecificas);
 
 })
 
@@ -47,17 +50,26 @@ function verificarCamposVazios() {
     }
 }
 
-function renderizarProdutos(produtos) {
-    for (let i = 0; i < produtos.length; i++) {
+function renderizarEstruturaCategorias(categoriasGerais, categorias) {
+    categoriasGerais.forEach(async categoria => {
+
+        let categoriaMestra = categorias.find(element => element.includes(categoria))
+        let produtos = await listarProdutosCategoria(categoriaMestra);
+
+        produtosContainer.innerHTML += `<h4 style="color: rgb(255, 101, 0);"> ${categoria} </h4>`
+        produtosContainer.innerHTML += renderizarProdutos(produtos, 3)
+    })
+}
+
+function renderizarProdutos(produtos, limit) {
+    let products = "";
+    for (let i = 0; i < (limit > produtos.length ? produtos.length : limit); i++) {
 
         let produto = produtos[i]
         let avaliacao = produto.rating.rate
         let estrelasAvaliacao = criaElementoAvaliacao(avaliacao)
 
-        // console.log(produto)
-
-        produtosContainer.innerHTML +=
-            `<a href="./screens/detalhes.html?id=${produto.id}" class="text-decoration-none">
+        products += `<a href="./screens/detalhes.html?id=${produto.id}" class="text-decoration-none">
                 <div class="row py-2 border rounded my-2 text-black"> 
                     <div class="col-auto px-3 d-flex">
                         <img class="" width="107px" src=${produto.image} alt="Card image cap">
@@ -73,9 +85,13 @@ function renderizarProdutos(produtos) {
             </a>`
 
     }
+
+    return products
 }
 
 function renderizarCategorias(categorias) {
+
+
     for (let i = 0; i < categorias.length; i++) {
 
         let categoria = categorias[i]

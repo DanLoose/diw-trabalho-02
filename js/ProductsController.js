@@ -26,13 +26,29 @@ async function listarCategorias() {
     await fetch(endpoint + 'products/categories')
         .then(res => res.json())
         .then(json => categorias = json)
-    return categorias
+
+    let categoriasGerais = []
+    let categoriasEspecificas = []
+
+    categorias.forEach(categoria => {
+        let auxCategoriaGeral = categoria.split(" - ")[0];
+        let auxCategoriaEspecifica = categoria.split(" - ")[1];
+
+        if (!categoriasGerais.some(categoria => categoria === auxCategoriaGeral))
+            categoriasGerais.push(auxCategoriaGeral)
+
+        if (!categoriasEspecificas.some(categoria => categoria === auxCategoriaEspecifica))
+            categoriasEspecificas.push(auxCategoriaEspecifica)
+    })
+
+
+    return [categoriasGerais, categoriasEspecificas, categorias]
 }
 
 async function listarProdutosCategoria(categoria) {
-    let produtos = []
-    await fetch(endpoint + 'category/' + categoria)
+    let produtos;
+    await fetch(endpoint + 'products/category/' + categoria)
         .then(res => res.json())
-        .then(json => produtos.push(json))
-    return produtos
+        .then(json => produtos = json)
+    return produtos.products
 }
