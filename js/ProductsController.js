@@ -1,11 +1,12 @@
 const endpoint = 'https://diwserver.vps.webdock.cloud/'
 
-async function listarProdutos() {
-    let produtos = []
+async function listarProdutos(filtro) {
+    let produtos;
+    // let path = "products" + filtro? ""
     await fetch(endpoint + 'products/')
         .then(res => res.json())
         .then(json => {
-            produtos.push(json.products)
+            produtos = (json.products)
             // console.log(json.products)
         })
     return produtos
@@ -21,10 +22,10 @@ async function listarProduto(id) {
 }
 
 async function listarCategorias() {
-    let categorias = []
+    let categorias;
     await fetch(endpoint + 'products/categories')
         .then(res => res.json())
-        .then(json => categorias.push(json))
+        .then(json => categorias = json)
     return categorias
 }
 

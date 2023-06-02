@@ -41,10 +41,6 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
@@ -63,30 +59,45 @@
                     <h4 class="m-0">Filtrar</h4>
                 </div>
                 <div class="col-auto">
-                    <i id="botao-filtro" class="fa-solid fa-caret-right"></i>
+                    <i id="dropdown-seta" class="fa-solid fa-caret-right"></i>
                 </div>
             </div>
 
             <div class="campo-filtragem" id="campo-filtragem">
-                <form>
+                <form id="form-filtro">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nome">
+                        <input placeholder="Nome do produto..." type="text" class="form-control" id="nome">
                     </div>
                     <div class="mb-3">
                         <label for="categoria" class="form-label">Categoria</label>
                         <select class="form-select" id="categoria">
                             <option value="" selected disabled>Selecione uma categoria</option>
-                            <option value="categoria1">Categoria 1</option>
-                            <option value="categoria2">Categoria 2</option>
-                            <option value="categoria3">Categoria 3</option>
                         </select>
                     </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="precoMinimo" class="form-label">Preço Mínimo:</label>
+                                <input type="number" class="form-control" id="precoMinimo" min="0" max="100000"
+                                    placeholder="R$00,00" step="10">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="precoMaximo" class="form-label">Preço Máximo:</label>
+                                <input type="number" class="form-control" id="precoMaximo" min="0"
+                                    placeholder="R$1000,00" max="100000" step="10">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mb-3">
-                        <label for="preco" class="form-label">Preço</label>
-                        <input type="range" class="form-range" id="preco" min="0" max="100" step="1">
+                        <button class="btn btn-primary w-100" id="botao-filtro" disabled>Filtrar</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
