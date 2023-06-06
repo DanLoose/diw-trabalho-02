@@ -1,14 +1,17 @@
 window.addEventListener("load", async event => {
 
     let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
+    let products = await listarProdutos();
     renderizarEstruturaCategorias(categoriasGerais, categorias);
-    renderizarCategorias(categoriasGerais)
+    renderizarCategoriasFiltro(categoriasGerais);
+    renderizaCategoriasHeader(categoriasGerais);
 
 })
 
 const produtosContainer = document.getElementById('produtos');
 const campoFiltragem = document.getElementById("campo-filtragem");
 const filtroContainer = document.querySelector(".filtro-container");
+const categoriasHeader = document.querySelector("#categorias-header");
 
 // form fields
 const nomeInput = document.getElementById("nome");
@@ -20,19 +23,25 @@ const botaoFiltro = document.getElementById("botao-filtro");
 const inputs = [nomeInput, selectCategoria, precoMinimoInput, precoMaximoInput];
 
 // EVENT LISTENERS
-filtroContainer.addEventListener("click", function () {
-    campoFiltragem.classList.toggle("aberto");
-    dropDownSeta.classList.toggle("fa-caret-right");
-    dropDownSeta.classList.toggle("fa-caret-down");
-});
+// abre e fecha div de filtro
+filtroContainer.addEventListener("click", abreEfechaFiltro);
 
+// habilita e desabilita botao de filtro
 inputs.forEach(input => {
     input.addEventListener("input", verificarCamposVazios);
 });
 
+// filtra a partir dos dados do input
 botaoFiltro.addEventListener("click", filtrar);
 
 // FUNÇÕES
+
+function abreEfechaFiltro() {
+    campoFiltragem.classList.toggle("aberto");
+    dropDownSeta.classList.toggle("fa-caret-right");
+    dropDownSeta.classList.toggle("fa-caret-down");
+}
+
 function filtrar() {
     let produtos
 }
@@ -85,7 +94,7 @@ function renderizarProdutos(produtos, limit) {
     return products
 }
 
-function renderizarCategorias(categorias) {
+function renderizarCategoriasFiltro(categorias) {
 
 
     for (let i = 0; i < categorias.length; i++) {
@@ -96,6 +105,19 @@ function renderizarCategorias(categorias) {
             `<option value="${slugify(categoria)}">${categoria}</option>`
 
     }
+}
+
+function renderizaCategoriasHeader(categorias) {
+
+    for (let i = 0; i < categorias.length; i++) {
+
+        let categoria = categorias[i]
+
+        categoriasHeader.innerHTML +=
+            `<li><a class="dropdown-item" href="#">${categoria}</a></li>`
+
+    }
+
 }
 
 function criaElementoAvaliacao(rate) {
