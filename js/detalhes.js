@@ -18,6 +18,8 @@ function renderizarProduto(produto) {
     let avaliacao = produto.rating.rate
     let estrelasAvaliacao = criaElementoAvaliacao(avaliacao)
 
+
+
     produtoContainer.innerHTML +=
         `
             <div class="row"> 
@@ -40,6 +42,39 @@ function renderizarProduto(produto) {
             <div class="row"> 
                 ${produto.description}
             </div>
+
+            <br>
+
+            <div class="row"> 
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Marca</th>
+                            <td>${produto.brandName}</td>
+                        </tr>
+                        <tr>
+                            <th>Categoria</th>
+                            <td>${produto.category}</td>
+                        </tr>
+                        <tr>
+                            <th>Cor</th>
+                            <td>${produto.baseColour}</td>
+                        </tr>
+                        <tr>
+                            <th>Ano</th>
+                            <td>${produto.year}</td>
+                        </tr>
+                        <tr>
+                            <th>Temporada</th>
+                            <td>${produto.season}</td>
+                        </tr>
+                        <tr>
+                            <th>Uso</th>
+                            <td>${produto.usage}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         `
 
 }
@@ -48,7 +83,7 @@ function renderizarProduto(produto) {
 function criaElementoAvaliacao(rate) {
     let myDiv = document.createElement('div')
     for (let i = 1; i <= 5; i++) {
-        if (i <= rate) {
+        if (i <= Math.round(rate)) {
             myDiv.innerHTML += `<i class="fa-solid fa-star" style="color: #ff8800;"></i>`
         } else {
             myDiv.innerHTML += `<i class="fa-solid fa-star" style="color: #cccccc;"></i>`

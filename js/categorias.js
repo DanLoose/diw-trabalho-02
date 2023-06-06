@@ -42,7 +42,7 @@ function renderizarProdutos(produtos, limit) {
 function criaElementoAvaliacao(rate) {
     let myDiv = document.createElement('div')
     for (let i = 1; i <= 5; i++) {
-        if (i <= rate) {
+        if (i <= Math.round(rate)) {
             myDiv.innerHTML += `<i class="fa-solid fa-star" style="color: #ff8800;"></i>`
         } else {
             myDiv.innerHTML += `<i class="fa-solid fa-star" style="color: #cccccc;"></i>`
