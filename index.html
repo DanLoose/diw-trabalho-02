@@ -14,40 +14,7 @@
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-
-            <!-- brand  -->
-            <a class="navbar-brand" href="#">Danilo's Ecommerce</a>
-
-            <!-- botao  -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- itens escondidos  -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./screens/sobremim.html">Sobre Mim</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Categorias
-                        </a>
-                        <ul id="categorias-header" class="dropdown-menu">
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar"></div>
 
     <!-- Tarja de aviso -->
     <div class=" alert alert-warning alert-dismissible fade show" role="alert">
@@ -111,40 +78,20 @@
     <main class="p-2">
 
         <!-- Produtos -->
-        <div class="container" id="produtos">
-
-        </div>
+        <div class="container" id="produtos"></div>
 
     </main>
 
-    <footer>
-        <!-- Informações Aluno -->
-        <div class="container" id="sobre-mim">
-            <div class="row">
-                <div class="col p-3">
+    <!-- FOOTER  -->
+    <footer id="footer"></footer>
 
-                    <small><span>Trabalho desenvolvido por: </span> </small> <br>
-                    <h5> Danilo Mascarenhas Loose </h5>
-                    <p class="m-0"> Sistemas de Informação Noturno</p>
-                    <p class="m-0"> PUC Minas - São Gabriel - 2023/1 </p>
-                    <p class="m-0"> Matrícula: 00809494</p>
-
-                </div>
-            </div>
-        </div>
-
-    </footer>
-
-    <!-- Optional JavaScript -->
+    <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
-
-
-    <!-- Font Awesome-->
     <script src="https://kit.fontawesome.com/f5419ab9d1.js" crossorigin="anonymous"></script>
-
-    <!-- controller, then page -->
+    <script src="./js/Partials/navbar.js"></script>
+    <script src="./js/Partials/footer.js"></script>
     <script src="./js/ProductsController.js"></script>
     <script src="./js/index.js"></script>
 
