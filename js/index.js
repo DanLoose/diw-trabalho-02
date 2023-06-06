@@ -1,7 +1,9 @@
+let products;
 window.addEventListener("load", async event => {
 
     let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
-    let products = await listarProdutos();
+    products = await listarProdutos();
+    console.log(products);
     renderizarEstruturaCategorias(categoriasGerais, categorias);
     renderizarCategoriasFiltro(categoriasGerais);
     renderizaCategoriasHeader(categoriasGerais);
@@ -42,8 +44,67 @@ function abreEfechaFiltro() {
     dropDownSeta.classList.toggle("fa-caret-down");
 }
 
-function filtrar() {
-    let produtos
+function filtrar(e) {
+    e.preventDefault();
+
+    let nomesFiltrados = [];
+    let categoriasFiltradas = [];
+    let precoMinFiltrados = [];
+    let precoMaxFiltrados = [];
+    let filtroCompleto = [];
+
+    let nome = nomeInput.value.toLowerCase();
+    let categoria = selectCategoria.value.toLowerCase();
+    let precoMin = precoMinimoInput.value;
+    let precoMax = precoMaximoInput.value;
+
+    if (nome) {
+        products.forEach(product => {
+            if (product.title.toLowerCase().includes(nome)) {
+                nomesFiltrados.push(product);
+            }
+        })
+    } else nomesFiltrados = products
+
+    if (categoria) {
+        products.forEach(product => {
+            if (product.category.toLowerCase().includes(categoria)) {
+                categoriasFiltradas.push(product);
+            }
+        })
+    } else categoriasFiltradas = products
+
+    if (precoMin) {
+        products.forEach(product => {
+            if (product.price >= precoMin) {
+                precoMinFiltrados.push(product);
+            }
+        })
+    } else precoMinFiltrados = products
+
+    if (precoMax) {
+        products.forEach(product => {
+            if (product.price <= precoMax) {
+                precoMaxFiltrados.push(product);
+            }
+        })
+    } else precoMaxFiltrados = products
+
+    filtroCompleto = obterIntersecaoArrays(nomesFiltrados, categoriasFiltradas, precoMinFiltrados, precoMaxFiltrados);
+    console.log(filtroCompleto);
+
+    produtosContainer.innerHTML = renderizarProdutos(filtroCompleto, 100);
+
+    nomeInput.value = "";
+    selectCategoria.value = "";
+    precoMinimoInput.value = "";
+    precoMaximoInput.value = "";
+}
+
+function obterIntersecaoArrays(...arrays) {
+    return arrays.reduce((intersecao, array) =>
+        intersecao.filter(elemento => array.includes(elemento))
+    );
 }
 
 function verificarCamposVazios() {
