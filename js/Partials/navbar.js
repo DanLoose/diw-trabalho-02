@@ -1,11 +1,11 @@
 const navbar = document.querySelector("#navbar");
 navbar.innerHTML +=
     `
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-secondary-subtle">
         <div class="container-fluid">
 
             <!-- brand  -->
-            <a class="navbar-brand" href="/index.html">Claudia's Ecommerce</a>
+            <a class="navbar-brand" href="/index.html">Danilo's Ecommerce</a>
 
             <!-- botao  -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

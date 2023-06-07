@@ -122,33 +122,38 @@ function renderizarEstruturaCategorias(categoriasGerais, categorias) {
         let categoriaMestra = categorias.find(element => element.includes(categoria))
         let produtos = await listarProdutosCategoria(categoriaMestra);
 
-        produtosContainer.innerHTML += `<a href="./screens/categorias.html?categoria=${categoriaMestra}" style="text-decoration: none"> <h4 style="color: rgb(255, 101, 0);"> ${categoria} </h4> </a>`
-        produtosContainer.innerHTML += renderizarProdutos(produtos, 3)
+        produtosContainer.innerHTML += `<hr>
+                                        <div class="row gap-2 justify-content-space-evenly">
+                                            <a href="./screens/categorias.html?categoria=${categoriaMestra}" style="text-decoration: none"> 
+                                                <h2 style="color: rgb(255, 101, 0);"> ${categoria} </h2> 
+                                            </a>
+                                            ${renderizarProdutos(produtos, 4)}
+                                        </div>`
     })
 }
 
 function renderizarProdutos(produtos, limit) {
     let products = "";
+
     for (let i = 0; i < (limit > produtos.length ? produtos.length : limit); i++) {
 
         let produto = produtos[i]
         let avaliacao = produto.rating.rate
         let estrelasAvaliacao = criaElementoAvaliacao(avaliacao)
 
-        products += `<a href="./screens/detalhes.html?id=${produto.id}" class="text-decoration-none">
-                <div class="row py-2 border rounded my-2 text-black"> 
-                    <div class="col-auto px-3 d-flex">
-                        <img class="" width="107px" src=${produto.image} alt="Card image cap">
+        products += `
+                <a href="./screens/detalhes.html?id=${produto.id}" class="col-12 col-sm-5 col-md-3 col-xl-2 text-decoration-none  py-2 border rounded my-2 text-black"> 
+                    <div class="px-3">
+                        <img class="d-block ${produtos.length == 1 ? "" : "m-auto"}" width="107px" src=${produto.image} alt="Card image cap">
                     </div>
 
-                    <div class="col">
+                    <div class="">
                         <h1 class="fs-6">${produto.title}</h1>
                         <small><span class="text-decoration-line-through small-text"> R$${((produto.price) * (1.2)).toFixed(2)} </span></small> 
                         <h5 style="color: rgb(255, 101, 0);" class="fw-bold"> R$${(produto.price).toFixed(2)} </h5>
                         <small>  <span> (${avaliacao}) </span>${estrelasAvaliacao.innerHTML} </small> 
                     </div>
-                </div>
-            </a>`
+                </a>`
 
     }
 
