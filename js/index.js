@@ -123,7 +123,7 @@ function renderizarEstruturaCategorias(categoriasGerais, categorias) {
         let produtos = await listarProdutosCategoria(categoriaMestra);
 
         produtosContainer.innerHTML += `<hr>
-                                        <div class="row gap-2 justify-content-space-evenly">
+                                        <div class="row gap-2 justify-content-center">
                                             <a href="./screens/categorias.html?categoria=${categoriaMestra}" style="text-decoration: none"> 
                                                 <h2 style="color: rgb(255, 101, 0);"> ${categoria} </h2> 
                                             </a>
@@ -142,7 +142,7 @@ function renderizarProdutos(produtos, limit) {
         let estrelasAvaliacao = criaElementoAvaliacao(avaliacao)
 
         products += `
-                <a href="./screens/detalhes.html?id=${produto.id}" class="col-12 col-sm-5 col-md-3 col-xl-2 text-decoration-none  py-2 border rounded my-2 text-black"> 
+                <a href="./screens/detalhes.html?id=${produto.id}" class="col-12 col-sm-4 col-md-2 text-decoration-none  py-2 border rounded my-2 text-black"> 
                     <div class="px-3">
                         <img class="d-block ${produtos.length == 1 ? "" : "m-auto"}" width="107px" src=${produto.image} alt="Card image cap">
                     </div>
