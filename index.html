@@ -27,7 +27,7 @@
         <div class="container border rounded my-0 p-2">
             <div class="row justify-content-between me-1 filtro-container">
                 <div class="col-auto">
-                    <h4 class="m-0">Filtrar</h4>
+                    <h4 class="m-0 ">Filtrar</h4>
                 </div>
                 <div class="col-auto">
                     <i id="dropdown-seta" class="fa-solid fa-caret-right"></i>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="campo-filtragem" id="campo-filtragem">
-                <form id="form-filtro">
+                <form id="form-filtro" class="d-flex flex-column flex-lg-row gap-3 justify-content-center ">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
                         <input placeholder="Nome do produto..." type="text" class="form-control" id="nome">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 my-lg-3 py-lg-1">
                         <button class="btn btn-primary w-100" id="botao-filtro" disabled>Filtrar</button>
                     </div>
                 </form>

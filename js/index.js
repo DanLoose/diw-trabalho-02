@@ -3,7 +3,6 @@ window.addEventListener("load", async event => {
 
     let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
     products = await listarProdutos();
-    console.log(products);
     renderizarEstruturaCategorias(categoriasGerais, categorias);
     renderizarCategoriasFiltro(categoriasGerais);
     renderizaCategoriasHeader(categoriasGerais);
@@ -44,7 +43,7 @@ function abreEfechaFiltro() {
     dropDownSeta.classList.toggle("fa-caret-down");
 }
 
-function filtrar(e) {
+async function filtrar(e) {
     e.preventDefault();
 
     let nomesFiltrados = [];
@@ -59,17 +58,19 @@ function filtrar(e) {
     let precoMax = precoMaximoInput.value;
 
     if (nome) {
-        products.forEach(product => {
-            if (product.title.toLowerCase().includes(nome)) {
-                nomesFiltrados.push(product);
-            }
-        })
+        nomesFiltrados = await listarProdutos(nome)
+        produtosContainer.innerHTML = `<hr>
+        <div class="row gap-2 justify-content-center">
+            ${renderizarProdutos(nomesFiltrados, 100)}
+        </div>`
+        return
     } else nomesFiltrados = products
 
     if (categoria) {
         products.forEach(product => {
             if (product.category.toLowerCase().includes(categoria)) {
                 categoriasFiltradas.push(product);
+
             }
         })
     } else categoriasFiltradas = products
@@ -90,10 +91,12 @@ function filtrar(e) {
         })
     } else precoMaxFiltrados = products
 
-    filtroCompleto = obterIntersecaoArrays(nomesFiltrados, categoriasFiltradas, precoMinFiltrados, precoMaxFiltrados);
-    console.log(filtroCompleto);
+    filtroCompleto = await obterIntersecaoArrays(nomesFiltrados, categoriasFiltradas, precoMinFiltrados, precoMaxFiltrados);
 
-    produtosContainer.innerHTML = renderizarProdutos(filtroCompleto, 100);
+    produtosContainer.innerHTML = `<hr>
+    <div class="row gap-2 justify-content-center">
+        ${renderizarProdutos(filtroCompleto, 100)}
+    </div>`
 
     nomeInput.value = "";
     selectCategoria.value = "";
@@ -142,7 +145,7 @@ function renderizarProdutos(produtos, limit) {
         let estrelasAvaliacao = criaElementoAvaliacao(avaliacao)
 
         products += `
-                <a href="./screens/detalhes.html?id=${produto.id}" class="col-12 col-sm-4 col-md-2 text-decoration-none  py-2 border rounded my-2 text-black"> 
+                <a href="./screens/detalhes.html?id=${produto.id}" class="col text-decoration-none  py-2 border rounded my-2 text-black"> 
                     <div class="px-3">
                         <img class="d-block ${produtos.length == 1 ? "" : "m-auto"}" width="107px" src=${produto.image} alt="Card image cap">
                     </div>

@@ -5,10 +5,24 @@ window.addEventListener("load", async event => {
     let objetoProduto = await listarProduto(id)
 
     renderizarProduto(objetoProduto)
-
+    let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
+    renderizaCategoriasHeader(categoriasGerais);
 })
 
+const categoriasHeader = document.querySelector("#categorias-header");
 
+function renderizaCategoriasHeader(categorias) {
+
+    for (let i = 0; i < categorias.length; i++) {
+
+        let categoria = categorias[i]
+
+        categoriasHeader.innerHTML +=
+            `<li><a class="dropdown-item" href="#">${categoria}</a></li>`
+
+    }
+
+}
 const produtoContainer = document.getElementById('produto-info')
 
 function renderizarProduto(produto) {
