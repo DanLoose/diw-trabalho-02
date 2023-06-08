@@ -19,3 +19,9 @@ function criaElementoAvaliacao(avaliacao) {
     }
     return divAvaliacao
 }
+
+function obterIntersecaoArrays(...arrays) {
+    return arrays.reduce((intersecao, array) =>
+        intersecao.filter(elemento => array.includes(elemento))
+    );
+}

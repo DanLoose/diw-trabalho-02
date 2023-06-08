@@ -1,18 +1,9 @@
 let products;
-window.addEventListener("load", async event => {
 
-    let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
-    products = await listarProdutos();
-    renderizarEstruturaCategorias(categoriasGerais, categorias);
-    renderizarCategoriasFiltro(categoriasGerais);
-    renderizaCategoriasHeader(categoriasGerais);
-
-})
 
 const produtosContainer = document.getElementById('produtos');
 const campoFiltragem = document.getElementById("campo-filtragem");
 const filtroContainer = document.querySelector(".filtro-container");
-const categoriasHeader = document.querySelector("#categorias-header");
 
 // form fields
 const nomeInput = document.getElementById("nome");
@@ -24,19 +15,25 @@ const botaoFiltro = document.getElementById("botao-filtro");
 const inputs = [nomeInput, selectCategoria, precoMinimoInput, precoMaximoInput];
 
 // EVENT LISTENERS
-// abre e fecha div de filtro
+window.addEventListener("load", async event => {
+
+    let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
+    products = await listarProdutos();
+    renderizarEstruturaCategorias(categoriasGerais, categorias);
+    renderizarCategoriasFiltro(categoriasGerais);
+    renderizaCategoriasHeader(categoriasGerais);
+
+})
+
 filtroContainer.addEventListener("click", abreEfechaFiltro);
 
-// habilita e desabilita botao de filtro
 inputs.forEach(input => {
-    input.addEventListener("input", verificarCamposVazios);
+    input.addEventListener("input", lidarComBotaoFiltro);
 });
 
-// filtra a partir dos dados do input
 botaoFiltro.addEventListener("click", filtrar);
 
 // FUNÇÕES
-
 function abreEfechaFiltro() {
     campoFiltragem.classList.toggle("aberto");
     dropDownSeta.classList.toggle("fa-caret-right");
@@ -104,13 +101,7 @@ async function filtrar(e) {
     precoMaximoInput.value = "";
 }
 
-function obterIntersecaoArrays(...arrays) {
-    return arrays.reduce((intersecao, array) =>
-        intersecao.filter(elemento => array.includes(elemento))
-    );
-}
-
-function verificarCamposVazios() {
+function lidarComBotaoFiltro() {
     const camposPreenchidos = inputs.some(input => input.value !== "");
     if (camposPreenchidos) {
         botaoFiltro.disabled = false;
@@ -135,22 +126,6 @@ function renderizarEstruturaCategorias(categoriasGerais, categorias) {
     })
 }
 
-function renderizarProdutos(produtos, limit) {
-    let products = "";
-
-    for (let i = 0; i < (limit > produtos.length ? produtos.length : limit); i++) {
-
-        let produto = produtos[i]
-        let avaliacao = produto.rating.rate
-        let estrelasAvaliacao = criaElementoAvaliacao(avaliacao)
-
-        products += cardProduto(produto, produtos, avaliacao, estrelasAvaliacao)
-
-    }
-
-    return products
-}
-
 function renderizarCategoriasFiltro(categorias) {
 
 
@@ -163,17 +138,3 @@ function renderizarCategoriasFiltro(categorias) {
 
     }
 }
-
-function renderizaCategoriasHeader(categorias) {
-
-    for (let i = 0; i < categorias.length; i++) {
-
-        let categoria = categorias[i]
-
-        categoriasHeader.innerHTML +=
-            `<li><a class="dropdown-item" href="#">${categoria}</a></li>`
-
-    }
-
-}
-
