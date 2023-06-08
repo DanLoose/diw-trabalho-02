@@ -42,11 +42,11 @@ function renderizarProduto(produto) {
                 </div>
             </div>
 
-            <div class="row"> 
-                <div class="col-8 text-center"> 
+            <div class="row flex-column flex-sm-row"> 
+                <div class="col-7 text-center m-auto"> 
                     <img class="" width="50%" src=${produto.image} alt="Card image cap">
                 </div>
-                <div class="col d-flex flex-column justify-content-center"> 
+                <div class="col d-flex flex-column justify-content-center mb-3 align-items-center"> 
                     <div> 
                         ${estrelasAvaliacao.innerHTML} <span>${produto.rating.rate} (${produto.rating.count})  </span>
                     </div>
