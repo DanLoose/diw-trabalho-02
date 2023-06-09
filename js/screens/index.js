@@ -60,6 +60,7 @@ async function filtrar(e) {
         <div class="row gap-2 justify-content-center">
             ${renderizarProdutos(nomesFiltrados, 100)}
         </div>`
+        nomeInput.value = "";
         return
     } else nomesFiltrados = products
 
