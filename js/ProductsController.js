@@ -26,22 +26,7 @@ async function listarCategorias() {
         .then(res => res.json())
         .then(json => categorias = json)
 
-    let categoriasGerais = []
-    let categoriasEspecificas = []
-
-    categorias.forEach(categoria => {
-        let auxCategoriaGeral = categoria.split(" - ")[0];
-        let auxCategoriaEspecifica = categoria.split(" - ")[1];
-
-        if (!categoriasGerais.some(categoria => categoria === auxCategoriaGeral))
-            categoriasGerais.push(auxCategoriaGeral)
-
-        if (!categoriasEspecificas.some(categoria => categoria === auxCategoriaEspecifica))
-            categoriasEspecificas.push(auxCategoriaEspecifica)
-    })
-
-
-    return [categoriasGerais, categoriasEspecificas, categorias]
+    return categorias
 }
 
 async function listarProdutosCategoria(categoria) {

@@ -1,4 +1,3 @@
-let products;
 const produtosContainer = document.getElementById('produtos');
 const filtroContainer = document.querySelector(".filtro-container");
 
@@ -11,11 +10,11 @@ const inputs = [nomeInput, selectCategoria];
 // EVENT LISTENERS
 window.addEventListener("load", async event => {
 
-    let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
-    products = await listarProdutos();
-    renderizarEstruturaCategorias(categoriasGerais, categorias);
+    let categorias = await listarCategorias();
+
+    renderizarEstruturaCategorias(categorias);
     renderizarCategoriasFiltro(categorias);
-    renderizaCategoriasHeader(categoriasGerais);
+    renderizaCategoriasHeader(categorias);
 
 })
 
@@ -89,15 +88,14 @@ function lidarComBotaoFiltro() {
     }
 }
 
-function renderizarEstruturaCategorias(categoriasGerais, categorias) {
-    categoriasGerais.forEach(async categoria => {
+function renderizarEstruturaCategorias(categorias) {
+    categorias.forEach(async categoria => {
 
-        let categoriaMestra = categorias.find(element => element.includes(categoria))
-        let produtos = await listarProdutosCategoria(categoriaMestra);
+        let produtos = await listarProdutosCategoria(categoria);
 
         produtosContainer.innerHTML += `<hr>
                                         <div class="row gap-2 justify-content-center">
-                                            <a href="./screens/categorias.html?categoria=${categoriaMestra}" style="text-decoration: none"> 
+                                            <a href="./screens/categorias.html?categoria=${categoria}" style="text-decoration: none"> 
                                                 <h2 style="color: rgb(255, 101, 0);"> ${categoria} </h2> 
                                             </a>
                                             ${renderizarProdutos(produtos, 4)}
@@ -107,13 +105,9 @@ function renderizarEstruturaCategorias(categoriasGerais, categorias) {
 
 function renderizarCategoriasFiltro(categorias) {
 
-
-    for (let i = 0; i < categorias.length; i++) {
-
-        let categoria = categorias[i]
-
+    categorias.forEach(categoria => {
         selectCategoria.innerHTML +=
             `<option value="${categoria}">${categoria}</option>`
 
-    }
+    })
 }

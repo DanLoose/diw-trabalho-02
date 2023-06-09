@@ -8,7 +8,7 @@ function renderizaCategoriasHeader(categorias) {
         let categoria = categorias[i]
 
         categoriasHeader.innerHTML +=
-            `<li><a class="dropdown-item" href="#">${categoria}</a></li>`
+            `<li><a class="dropdown-item" href="/screens/categorias.html?categoria=${categoria}">${categoria}</a></li>`
 
     }
 

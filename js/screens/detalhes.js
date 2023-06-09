@@ -4,11 +4,12 @@ window.addEventListener("load", async event => {
 
     const searchParams = new URL(location.href).searchParams
     let id = searchParams.get('id')
+    
     let produto = await listarProduto(id)
+    let categorias = await listarCategorias();
 
     renderizarProduto(produto)
-    let [categoriasGerais] = await listarCategorias();
-    renderizaCategoriasHeader(categoriasGerais);
+    renderizaCategoriasHeader(categorias);
 })
 
 function renderizarProduto(produto) {
