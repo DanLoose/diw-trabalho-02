@@ -1,18 +1,12 @@
 let products;
-
-
 const produtosContainer = document.getElementById('produtos');
-const campoFiltragem = document.getElementById("campo-filtragem");
 const filtroContainer = document.querySelector(".filtro-container");
 
 // form fields
 const nomeInput = document.getElementById("nome");
 const selectCategoria = document.querySelector("#categoria");
-const precoMinimoInput = document.getElementById("precoMinimo");
-const precoMaximoInput = document.getElementById("precoMaximo");
-const dropDownSeta = document.getElementById("dropdown-seta");
 const botaoFiltro = document.getElementById("botao-filtro");
-const inputs = [nomeInput, selectCategoria, precoMinimoInput, precoMaximoInput];
+const inputs = [nomeInput, selectCategoria];
 
 // EVENT LISTENERS
 window.addEventListener("load", async event => {
@@ -20,12 +14,10 @@ window.addEventListener("load", async event => {
     let [categoriasGerais, categoriasEspecificas, categorias] = await listarCategorias();
     products = await listarProdutos();
     renderizarEstruturaCategorias(categoriasGerais, categorias);
-    renderizarCategoriasFiltro(categoriasGerais);
+    renderizarCategoriasFiltro(categorias);
     renderizaCategoriasHeader(categoriasGerais);
 
 })
-
-filtroContainer.addEventListener("click", abreEfechaFiltro);
 
 inputs.forEach(input => {
     input.addEventListener("input", lidarComBotaoFiltro);
@@ -34,76 +26,62 @@ inputs.forEach(input => {
 botaoFiltro.addEventListener("click", filtrar);
 
 // FUNÇÕES
-function abreEfechaFiltro() {
-    campoFiltragem.classList.toggle("aberto");
-    dropDownSeta.classList.toggle("fa-caret-right");
-    dropDownSeta.classList.toggle("fa-caret-down");
-}
-
 async function filtrar(e) {
     e.preventDefault();
 
+    nomeInput.disabled = false;
+    selectCategoria.disabled = false;
+
     let nomesFiltrados = [];
     let categoriasFiltradas = [];
-    let precoMinFiltrados = [];
-    let precoMaxFiltrados = [];
-    let filtroCompleto = [];
 
     let nome = nomeInput.value.toLowerCase();
-    let categoria = selectCategoria.value.toLowerCase();
-    let precoMin = precoMinimoInput.value;
-    let precoMax = precoMaximoInput.value;
+    let categoria = selectCategoria.value;
 
     if (nome) {
         nomesFiltrados = await listarProdutos(nome)
+    }
+
+    if (categoria) {
+        categoriasFiltradas = await listarProdutosCategoria(categoria)
+    }
+
+    if (nomesFiltrados.length > 0) {
         produtosContainer.innerHTML = `<hr>
         <div class="row gap-2 justify-content-center">
+        <a href="index.html"> Voltar </a>
             ${renderizarProdutos(nomesFiltrados, 100)}
         </div>`
         nomeInput.value = "";
-        return
-    } else nomesFiltrados = products
+        selectCategoria.value = "";
+    } else if (categoriasFiltradas.length > 0) {
+        produtosContainer.innerHTML = `<hr>
+        <div class="row gap-2 justify-content-center">
+        <a href="index.html"> Voltar </a>
+            ${renderizarProdutos(categoriasFiltradas, 100)}
+        </div>`
+        nomeInput.value = "";
+        selectCategoria.value = "";
+    } else {
+        produtosContainer.innerHTML = `<hr>
+        <div class="row gap-2 justify-content-center">
+            <p> Nenhum elemento encontrado. </p>
+            <a href="index.html"> Voltar </a>
+        </div>`
 
-    if (categoria) {
-        products.forEach(product => {
-            if (product.category.toLowerCase().includes(categoria)) {
-                categoriasFiltradas.push(product);
+    }
 
-            }
-        })
-    } else categoriasFiltradas = products
-
-    if (precoMin) {
-        products.forEach(product => {
-            if (product.price >= precoMin) {
-                precoMinFiltrados.push(product);
-            }
-        })
-    } else precoMinFiltrados = products
-
-    if (precoMax) {
-        products.forEach(product => {
-            if (product.price <= precoMax) {
-                precoMaxFiltrados.push(product);
-            }
-        })
-    } else precoMaxFiltrados = products
-
-    filtroCompleto = await obterIntersecaoArrays(nomesFiltrados, categoriasFiltradas, precoMinFiltrados, precoMaxFiltrados);
-
-    produtosContainer.innerHTML = `<hr>
-    <div class="row gap-2 justify-content-center">
-        ${renderizarProdutos(filtroCompleto, 100)}
-    </div>`
-
-    nomeInput.value = "";
-    selectCategoria.value = "";
-    precoMinimoInput.value = "";
-    precoMaximoInput.value = "";
 }
 
 function lidarComBotaoFiltro() {
     const camposPreenchidos = inputs.some(input => input.value !== "");
+
+    if (inputs[0].value) {
+        inputs[1].disabled = true
+    } else if (inputs[1].value) {
+        inputs[0].disabled = true
+    }
+
     if (camposPreenchidos) {
         botaoFiltro.disabled = false;
     } else {
@@ -135,7 +113,7 @@ function renderizarCategoriasFiltro(categorias) {
         let categoria = categorias[i]
 
         selectCategoria.innerHTML +=
-            `<option value="${slugify(categoria)}">${categoria}</option>`
+            `<option value="${categoria}">${categoria}</option>`
 
     }
 }
